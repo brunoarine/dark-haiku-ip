@@ -253,17 +253,3 @@ function generateHaiku(ip) {
   var haiku = decimal2words(encodedDecimal);
   return haiku;
 }
-
-// const cloudflare = "https://www.cloudflare.com/cdn-cgi/trace";
-// const ipify = "https://api.ipify.org";
-
-// fetch("https://www.cloudflare.com/cdn-cgi/trace").then(function (response) {
-//   response.text().then(function (text) {
-//     document.getElementById("ip").innerHTML = text.split("\n")[2].split("=")[1];
-//     ip = document.getElementById("ip").innerHTML;
-//     generateHaiku(ip);
-//   });
-// });
-
-// ip = document.getElementById("ip").innerHTML;
-// generateHaiku(ip);
