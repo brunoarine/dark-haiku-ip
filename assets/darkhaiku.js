@@ -1,3 +1,26 @@
+/* * darkhaiku.js
+ *
+ * Converts an IP into a macabre, degenerate dark haiku. It should work with
+ * both IPv4 and IPv6.
+ *
+ * ========= USAGE =========
+ *
+ * generateHaiku(ip);
+ *
+ * ========= LICENSE =========
+ *
+ * Copyright 2020 Bruno Arine <bruno.arine@runbox.com>
+ *
+ * https://github.com/soldeace/dark-haiku-ip/blob/main/LICENSE
+ */
+
+// Dictionaries that are going to compose the dark haiku.
+// They will be formatted as follows:
+//
+// "The <subjectAdj> <subjectColor> <subjectNoun>"
+// "<subjectVerb> in the <placeAdj> <placeNoun>."
+// "<objectNoun> <objectVerb>."
+
 const subjectAdj = [
   "parched",
   "disturbed",
@@ -150,6 +173,10 @@ const objectVerb = [
   "drown",
 ];
 
+// Let an IP be formed by 4 octets, such that each octet is
+// result of a product x * y where x, y E [0.16]. This function
+// decomposes the IP, so that the end result is a
+// list with the decomposition of each octet.
 function ip2decimal(ip) {
   var m = 16;
   var lista = [];
@@ -164,12 +191,22 @@ function ip2decimal(ip) {
   return lista;
 }
 
+// Shifts a list by n places to the right
 function rotate(list, places) {
   places = -places - list.length * Math.floor(-places / list.length);
   list.push.apply(list, list.splice(0, places));
   return list;
 }
 
+// Rotate a list as if it were a roulette wheel. The number of seats
+//     displaced from each item is taken from their own value.
+//     Example:
+//     encode([0,1,2])
+//     [0,1,2] (shifts 0 places)
+//     [2,0,1] (shifts 1 place)
+//     [1,2,0] (shifts 2 places)
+//     This is not encryption. It only serves to completely change
+//     the haiku if only one digit is changed in the IP.
 function encode(list) {
   var newList;
   for (i in list) {
@@ -178,6 +215,8 @@ function encode(list) {
   return newList;
 }
 
+// Search the dictionaries for the word corresponding to each
+// number up to 16.
 function decimal2words(list) {
   schema =
     `<p>The ${subjectAdj[list[0]]} ${subjectColor[list[2]]} ${
@@ -190,6 +229,8 @@ function decimal2words(list) {
   return schema;
 }
 
+// Converts IPv6 to decimal numbers, but adds 1 to each token
+// because rotate() won't work properly with zeros
 function ipv6ToNumber(ip) {
   var digits = ip.split(":").slice(0, 4);
   converted =
