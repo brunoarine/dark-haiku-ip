@@ -207,8 +207,9 @@ function rotate(list, places) {
 //     This is not encryption. It only serves to completely change
 //     the haiku if only one digit is changed in the IP.
 function encode(list) {
-  var newList = list;
-  for (i in list) {
+  let newList = list;
+  for (i = 0; i < list.length; i++) {
+    console.log("i:", i, "list[i]:", list[i]);
     newList = rotate(newList, list[i]);
   }
   return newList;
