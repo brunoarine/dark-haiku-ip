@@ -185,9 +185,8 @@ function ip2decimal(ip) {
     n = parseInt(splittedIP[i]);
     var y = n % m;
     var x = (n - y) / m;
-    lista.push(x % m, y % m);
+    lista.push(x % m, y);
   }
-  console.log(lista);
   return lista;
 }
 
@@ -208,7 +207,7 @@ function rotate(list, places) {
 //     This is not encryption. It only serves to completely change
 //     the haiku if only one digit is changed in the IP.
 function encode(list) {
-  var newList;
+  var newList = list;
   for (i in list) {
     newList = rotate(newList, list[i]);
   }
@@ -249,9 +248,9 @@ function generateHaiku(ip) {
   if (ip.includes(":")) {
     ip = ipv6ToNumber(ip);
   }
-  decimal = ip2decimal(ip);
-  encodedDecimal = encode(decimal);
-  haiku = decimal2words(encodedDecimal);
+  var decimal = ip2decimal(ip);
+  var encodedDecimal = encode(decimal);
+  var haiku = decimal2words(encodedDecimal);
   return haiku;
 }
 

@@ -57,8 +57,8 @@
           <script type="application/javascript">
           fetch("https://www.cloudflare.com/cdn-cgi/trace").then(function (response) {
                response.text().then(function (text) {
-                   document.getElementById("ip").innerHTML = text.split("\n")[2].split("=")[1];
-                   ip = document.getElementById("ip").innerHTML;
+                   var ip = text.split("\n")[2].split("=")[1];
+                   document.getElementById("ip").innerHTML = ip;   
                    document.getElementById("haiku").innerHTML = generateHaiku(ip);
                });
            });   
