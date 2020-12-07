@@ -208,8 +208,8 @@ function rotate(list, places) {
 //     the haiku if only one digit is changed in the IP.
 function encode(list) {
   let newList = list;
-  for (i = 0; i < list.length; i++) {
-    console.log("i:", i, "list[i]:", list[i]);
+  let i = 0;
+  for (i; i < list.length; i++) {
     newList = rotate(newList, list[i]);
   }
   return newList;
