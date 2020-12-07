@@ -2,7 +2,7 @@
 
 Converts your internet IP into a dark, degenerate haiku. Basically a gothic rip-off of gabemart's [https://github.com/gabemart/hipku](hipku).
 
-Example: =123.237.12.117= will generate the following dark haiku:
+Example: `123.237.12.117` will generate the following dark haiku:
 
     The sly pale dragon
     hunts in the fetid crater.
