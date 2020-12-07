@@ -210,7 +210,7 @@ function rotate(list, places) {
 function encode(list) {
   var newList;
   for (i in list) {
-    newList = rotate(list, list[i]);
+    newList = rotate(newList, list[i]);
   }
   return newList;
 }
