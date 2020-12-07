@@ -160,33 +160,9 @@ function ip2decimal(ip) {
     var x = (n - y) / m;
     lista.push(x, y);
   }
-  console.log("Lista:", lista);
   return lista;
 }
 
-// function rotate(list, places) {
-//   var appendages = Math.ceil(places / list.length);
-//   var end = list.length * appendages - places;
-//   var start = end - list.length;
-//   var newList = [];
-//   for (i = 0; i <= appendages; i++) {
-//     newList = newList.concat(list);
-//   }
-//   console.log(
-//     "Start:",
-//     start,
-//     "End:",
-//     end,
-//     "Length:",
-//     list.length * appendages,
-//     "Places:",
-//     places,
-//     "Appendages:",
-//     appendages
-//   );
-//   return newList.slice(start, end);
-// }
-//
 function rotate(list, places) {
   places = -places - list.length * Math.floor(-places / list.length);
   list.push.apply(list, list.splice(0, places));
@@ -215,7 +191,7 @@ function decimal2words(list) {
 
 function generateHaiku() {
   ip = document.getElementById("ip").innerHTML;
-  console.log("IP: ", ip);
+  //console.log("IP: ", ip);
   decimal = ip2decimal(ip);
   encodedDecimal = encode(decimal);
   haiku = decimal2words(encodedDecimal);
