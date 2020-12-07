@@ -158,8 +158,9 @@ function ip2decimal(ip) {
     n = parseInt(splittedIP[i]);
     var y = n % m;
     var x = (n - y) / m;
-    lista.push(x, y);
+    lista.push(x % m, y % m);
   }
+  console.log(lista);
   return lista;
 }
 
@@ -189,18 +190,40 @@ function decimal2words(list) {
   return schema;
 }
 
-function generateHaiku() {
-  ip = document.getElementById("ip").innerHTML;
-  //console.log("IP: ", ip);
+function ipv6ToNumber(ip) {
+  var digits = ip.split(":").slice(0, 4);
+  converted =
+    parseInt(digits[0] + 1, 16) +
+    "." +
+    parseInt(digits[1] + 1, 16) +
+    "." +
+    parseInt(digits[2] + 1, 16) +
+    "." +
+    parseInt(digits[3] + 1, 16);
+
+  return converted;
+}
+
+function generateHaiku(ip) {
+  if (ip.includes(":")) {
+    ip = ipv6ToNumber(ip);
+  }
   decimal = ip2decimal(ip);
   encodedDecimal = encode(decimal);
   haiku = decimal2words(encodedDecimal);
-  document.getElementById("haiku").innerHTML = haiku;
+  return haiku;
 }
 
-fetch("https://www.cloudflare.com/cdn-cgi/trace").then(function (response) {
-  response.text().then(function (text) {
-    document.getElementById("ip").innerHTML = text.split("\n")[2].split("=")[1];
-    generateHaiku();
-  });
-});
+// const cloudflare = "https://www.cloudflare.com/cdn-cgi/trace";
+// const ipify = "https://api.ipify.org";
+
+// fetch("https://www.cloudflare.com/cdn-cgi/trace").then(function (response) {
+//   response.text().then(function (text) {
+//     document.getElementById("ip").innerHTML = text.split("\n")[2].split("=")[1];
+//     ip = document.getElementById("ip").innerHTML;
+//     generateHaiku(ip);
+//   });
+// });
+
+// ip = document.getElementById("ip").innerHTML;
+// generateHaiku(ip);
